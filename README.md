@@ -93,14 +93,14 @@ The following example deploy an `hello` service on ECS :
 deploy:
   steps:
     - healthunlocked/aws-ecs:
-        key: aws_access_key_id
-        secret: aws_access_secret_id
+        key: $AWS_ACCESS_KEY_ID
+        secret: $AWS_ACCESS_SECRET_ID
         cluster-name: staging
         task-definition-name: hello-migrate-db
         task-definition-file: /app/hello-migrate-db-task-definition.json
     - healthunlocked/aws-ecs:
-        key: aws_access_key_id
-        secret: aws_access_secret_id
+        key: $AWS_ACCESS_KEY_ID
+        secret: $AWS_ACCESS_SECRET_ID
         cluster-name: staging
         service-name: hello
         task-definition-name: hello

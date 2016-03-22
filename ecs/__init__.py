@@ -52,7 +52,7 @@ class ECSService(object):
         aws_cli_result = commands.getstatusoutput("aws --region {0} ecs register-task-definition --cli-input-json file://{1}".format(self.region_name, file))
         if aws_cli_result[0] != 0:
             raise Exception('Error running aws-cli (%d): %s' % aws_cli_result)
-        response = json.load(aws_cli_result[1]);
+        response = json.loads(aws_cli_result[1]);
 
         task_definition = response.get('taskDefinition')
         if task_definition.get('status') is 'INACTIVE':
