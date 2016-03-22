@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import json
 import os
+import commands
 
 from boto3 import Session
 
@@ -11,6 +12,7 @@ class ECSService(object):
     def __init__(self, access_key, secret_key, region='us-east-1'):
         session = Session(aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
         self.client = session.client('ecs')
+        self.region_name = region
 
     def describe_cluster(self, cluster):
         """
@@ -47,10 +49,11 @@ class ECSService(object):
         if os.path.isfile(file) is False:
             raise IOError('The task definition file does not exist')
 
-        with open(file, 'r') as content_file:
-            container_definitions = json.loads(content_file.read())
+        aws_cli_result = commands.getstatusoutput("aws --region {0} ecs register-task-definition --cli-input-json file://{1}".format(self.region_name, file))
+        if aws_cli_result[0] != 0:
+            raise Exception('Error running aws-cli (%d): %s' % aws_cli_result)
+        response = json.load(aws_cli_result[1]);
 
-        response = self.client.register_task_definition(family=family, containerDefinitions=container_definitions)
         task_definition = response.get('taskDefinition')
         if task_definition.get('status') is 'INACTIVE':
             arn = task_definition.get('taskDefinitionArn')
