@@ -88,6 +88,7 @@ else
     --task-definition-name "$WERCKER_AWS_ECS_TASK_DEFINITION_NAME" \
     --task-definition-file "$WERCKER_AWS_ECS_TASK_DEFINITION_FILE" \
     --service-name "$WERCKER_AWS_ECS_SERVICE_NAME" \
+    --skip-downscaling "$WERCKER_AWS_ECS_SKIP_DOWNSCALING" \
     --minimum-running-tasks "${WERCKER_AWS_ECS_MINIMUM_RUNNING_TASKS:-1}"
 fi
 
