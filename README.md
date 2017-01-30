@@ -56,6 +56,7 @@ The following configuration allows to setup this step :
 #### Step [Downscale ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_UpdateService.html)
 
 This step downscale the service in order to deploy the new revision.
+If `skip-downscaling` is set to `true`, the service will not be downscaled.
 
 See this [thread](https://forums.aws.amazon.com/thread.jspa?threadID=179271) for explanation :
 
@@ -105,4 +106,5 @@ deploy:
         service-name: hello
         task-definition-name: hello
         task-definition-file: /app/hello-task-definition.json
+        skip-downscaling: true
 ```

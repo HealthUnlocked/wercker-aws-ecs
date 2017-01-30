@@ -1,5 +1,5 @@
 name: aws-ecs
-version: 0.3.1
+version: 0.4.0
 description: Deploy service to ECS
 keywords:
   - aws
@@ -33,4 +33,7 @@ properties:
     required: true
   minimum-running-tasks:
     type: int
+    required: false
+  skip-downscaling:
+    type: string
     required: false
